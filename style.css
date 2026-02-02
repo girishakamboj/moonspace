@@ -1,0 +1,200 @@
+/* --------------------
+   RESET
+-------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --------------------
+   BODY
+-------------------- */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  color: #1f2a44;
+  background: linear-gradient(
+    180deg,
+    #eef4fb 0%,   /* light blue */
+    #e6efe9 45%,  /* sage */
+    #e9ecef 100%  /* soft grey */
+  );
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------
+   HEADER
+-------------------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(238, 244, 251, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 18px 40px;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1f2a44;
+}
+
+nav a {
+  margin-left: 28px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: #42536d;
+}
+
+nav a:hover {
+  color: #1f2a44;
+}
+
+.nav-cta {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #6fa8a1;
+  color: white;
+}
+
+/* --------------------
+   HERO
+-------------------- */
+.hero {
+  padding: 150px 20px 120px;
+  text-align: center;
+  animation: fadeUp 1.2s ease-out both;
+}
+
+.hero-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3.4rem;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #5f6f86;
+  margin-bottom: 42px;
+}
+
+/* --------------------
+   BUTTON
+-------------------- */
+.cta {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 999px;
+  background: #6fa8a1;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(31, 42, 68, 0.18);
+}
+
+/* --------------------
+   SECTIONS
+-------------------- */
+.section {
+  padding: 110px 20px;
+  animation: fadeUp 1.2s ease-out both;
+}
+
+.section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 1.9rem;
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+
+.section p {
+  font-size: 1.05rem;
+  color: #5f6f86;
+  margin-bottom: 18px;
+}
+
+/* --------------------
+   SOFT CARD
+-------------------- */
+.soft {
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 18px;
+  padding: 90px 30px;
+  filter: drop-shadow(0 14px 32px rgba(31, 42, 68, 0.04));
+}
+
+/* --------------------
+   FOOTER
+-------------------- */
+.footer {
+  padding: 90px 20px;
+  background: #e3e8ec;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5f6f86;
+}
+
+/* --------------------
+   FADE ANIMATION
+-------------------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------
+   MOBILE
+-------------------- */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .header {
+    padding: 16px 20px;
+  }
+
+  nav a {
+    margin-left: 16px;
+  }
+
+  .section {
+    padding: 80px 20px;
+  }
+}
