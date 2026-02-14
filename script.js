@@ -1,84 +1,149 @@
-/* =========================
-   MOONSPACE EXPERIENCE JS
-========================= */
+/* =====================================
+   MOONSPACE THERAPY – SCRIPT.JS
+===================================== */
 
-/* ---------- THERAPY MYTH CARD ---------- */
+/* ===============================
+   FADE IN ANIMATION (Intersection Observer)
+================================ */
 
-const myths = [
-  {
-    myth: "Therapy only works if you know exactly what’s wrong.",
-    truth: "Therapy often begins with uncertainty. Not knowing is part of the process, not a failure."
-  },
-  {
-    myth: "You need to be in crisis to start therapy.",
-    truth: "Many people come to therapy to understand themselves better, not because something is ‘wrong’."
-  },
-  {
-    myth: "Talking about things too much makes them worse.",
-    truth: "When done safely, reflection helps experiences settle instead of staying stuck inside."
-  },
-  {
-    myth: "A good therapist always gives answers.",
-    truth: "Therapy is more about helping you discover your own understanding than being told what to do."
-  },
-  {
-    myth: "If therapy is working, it should feel relieving all the time.",
-    truth: "Growth can feel quiet, uncomfortable, or neutral before it feels relieving."
+document.addEventListener("DOMContentLoaded", function () {
+
+  const faders = document.querySelectorAll(".fade-in");
+
+  const appearOptions = {
+    threshold: 0.2
+  };
+
+  const appearOnScroll = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+
+  faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+  });
+
+});
+
+
+/* ===============================
+   FAQ COLLAPSIBLE (Accessible)
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const faqButtons = document.querySelectorAll(".faq-question");
+
+  faqButtons.forEach(button => {
+
+    button.addEventListener("click", function () {
+
+      const answer = this.nextElementSibling;
+      const isOpen = answer.style.display === "block";
+
+      // Close all first (accordion behavior)
+      document.querySelectorAll(".faq-answer").forEach(a => {
+        a.style.display = "none";
+      });
+
+      if (!isOpen) {
+        answer.style.display = "block";
+      }
+
+    });
+
+  });
+
+});
+
+
+/* ===============================
+   THERAPY MYTH FLIP
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const mythCard = document.querySelector(".myth-card");
+  const mythFront = document.getElementById("mythFront");
+  const mythBack = document.getElementById("mythBack");
+
+  const myths = [
+    {
+      front: "Therapy is only for crisis.",
+      back: "Therapy can also be for reflection, growth and understanding patterns."
+    },
+    {
+      front: "If I am functioning, I don’t need therapy.",
+      back: "High-functioning stress can still carry emotional strain."
+    },
+    {
+      front: "Therapy gives advice.",
+      back: "Therapy often helps you hear your own thinking more clearly."
+    }
+  ];
+
+  let currentMyth = 0;
+
+  function loadMyth(index) {
+    mythFront.textContent = myths[index].front;
+    mythBack.textContent = myths[index].back;
   }
-];
 
-const mythCard = document.querySelector(".myth-card");
-const mythFront = document.getElementById("mythFront");
-const mythBack = document.getElementById("mythBack");
+  if (mythCard) {
 
-if (mythCard && mythFront && mythBack) {
-  const randomMyth = myths[Math.floor(Math.random() * myths.length)];
-  mythFront.textContent = randomMyth.myth;
-  mythBack.textContent = randomMyth.truth;
+    loadMyth(currentMyth);
 
-  mythCard.addEventListener("click", () => {
-    mythCard.classList.toggle("flipped");
+    mythCard.addEventListener("click", function () {
+
+      this.classList.toggle("flipped");
+
+      if (!this.classList.contains("flipped")) {
+        currentMyth = (currentMyth + 1) % myths.length;
+        loadMyth(currentMyth);
+      }
+
+    });
+
+  }
+
+});
+
+
+/* ===============================
+   JOURNAL PROMPTS ROTATION
+================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const journalElement = document.getElementById("journalPrompt");
+
+  const prompts = [
+    "Where do I feel the most pressure to appear composed?",
+    "What emotion have I been postponing?",
+    "What would slowing down look like for me?",
+    "Where do I feel misunderstood?",
+    "What feels heavier than it needs to be?"
+  ];
+
+  if (journalElement) {
+    const randomIndex = Math.floor(Math.random() * prompts.length);
+    journalElement.textContent = prompts[randomIndex];
+  }
+
+});
+
+
+/* ===============================
+   PERFORMANCE SAFE FALLBACK
+================================ */
+
+/* If IntersectionObserver is not supported */
+
+if (!("IntersectionObserver" in window)) {
+  document.querySelectorAll(".fade-in").forEach(el => {
+    el.classList.add("visible");
   });
 }
-
-/* ---------- DAILY JOURNAL PROMPT ---------- */
-
-const journalPrompts = [
-  "What emotion has been visiting you most often lately, even if you haven’t named it?",
-  "Where in your life are you holding yourself together instead of letting yourself rest?",
-  "What feels heavy right now that you haven’t spoken about out loud?",
-  "What part of your day feels the most like yourself?",
-  "What are you expecting of yourself that might be unrealistic right now?",
-  "When do you feel most disconnected from your body?",
-  "What would slowing down look like for you, even slightly?"
-];
-
-const journalElement = document.getElementById("journalPrompt");
-
-if (journalElement) {
-  const today = new Date().toDateString();
-  const savedDate = localStorage.getItem("moonspaceJournalDate");
-  const savedPrompt = localStorage.getItem("moonspaceJournalPrompt");
-
-  if (savedDate === today && savedPrompt) {
-    journalElement.textContent = savedPrompt;
-  } else {
-    const newPrompt =
-      journalPrompts[Math.floor(Math.random() * journalPrompts.length)];
-    journalElement.textContent = newPrompt;
-    localStorage.setItem("moonspaceJournalDate", today);
-    localStorage.setItem("moonspaceJournalPrompt", newPrompt);
-  }
-}
-
-/* ---------- BREATHING ORB (INTENTIONAL SILENCE) ---------- */
-/*
-No instructions.
-No text.
-No interaction.
-The orb exists purely as a visual regulator.
-The CSS animation handles everything.
-*/
-
-/* ---------- SAFETY CHECK ---------- */
-console.log("Moonspace experience loaded ✨");
